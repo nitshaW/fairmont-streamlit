@@ -211,9 +211,18 @@ if mandrill_df is not None and conversion_df is not None:
             return []
 
     mandrill_df['DATA_OPENS_DETAIL'] = mandrill_df['DATA_OPENS_DETAIL'].fillna('[]').apply(parse_json)
-    mandrill_df['device_type'] = mandrill_df['DATA_OPENS_DETAIL'].apply(lambda details: [
-        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') and ('Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']) else 'unknown' for d in details
-    ])
+
+    def determine_device_type(details):
+        for d in details:
+            if d.get('ua') is None:
+                continue
+            if 'Mobile' in d['ua']:
+                return 'mobile'
+            elif 'Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']:
+                return 'desktop'
+        return 'unknown'
+
+    mandrill_df['device_type'] = mandrill_df['DATA_OPENS_DETAIL'].apply(determine_device_type)
     
     mandrill_df['mobile_opens'] = mandrill_df.apply(lambda row: row['device_type'].count('mobile') if row['OPEN'] == 1 else 0, axis=1)
     mandrill_df['desktop_opens'] = mandrill_df.apply(lambda row: row['device_type'].count('desktop') if row['OPEN'] == 1 else 0, axis=1)
@@ -227,9 +236,7 @@ if mandrill_df is not None and conversion_df is not None:
 
     # Calculate device comparisons for clicks
     mandrill_df['DATA_CLICKS_DETAIL'] = mandrill_df['DATA_CLICKS_DETAIL'].fillna('[]').apply(parse_json)
-    mandrill_df['device_type_clicks'] = mandrill_df['DATA_CLICKS_DETAIL'].apply(lambda details: [
-        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') and ('Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']) else 'unknown' for d in details
-    ])
+    mandrill_df['device_type_clicks'] = mandrill_df['DATA_CLICKS_DETAIL'].apply(determine_device_type)
 
     mandrill_df['mobile_clicks'] = mandrill_df.apply(lambda row: row['device_type_clicks'].count('mobile') if row['CLICKS'] == 1 else 0, axis=1)
     mandrill_df['desktop_clicks'] = mandrill_df.apply(lambda row: row['device_type_clicks'].count('desktop') if row['CLICKS'] == 1 else 0, axis=1)
