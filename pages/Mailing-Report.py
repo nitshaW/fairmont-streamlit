@@ -16,15 +16,13 @@ def get_session():
     try:
         return get_active_session()
     except:
-        parser = configparser.ConfigParser()
-        parser.read(os.path.join(os.path.expanduser('~'), ".snowsql/config"))
-        section = "connections.demo_conn"
         pars = {
-            "account": parser.get(section, "account"),
-            "user": parser.get(section, "username"),
-            "password": parser.get(section, "password"),
-            "warehouse": parser.get(section, "warehousename"),
-            "role": parser.get(section, "role")
+            "account": st.secrets["snowflake"]["account"],
+            "user": st.secrets["snowflake"]["user"],
+            "password": st.secrets["snowflake"]["password"],
+            "warehouse": st.secrets["snowflake"]["warehouse"],
+            "role": st.secrets["snowflake"]["role"],
+            "database": st.secrets["snowflake"]["database"]
         }
         return Session.builder.configs(pars).create()
 
