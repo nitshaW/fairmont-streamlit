@@ -33,8 +33,9 @@ def get_dataframe(query):
         return None
     try:
         # Execute query and fetch results
-        snow_df = session.sql(query).to_pandas()
-        return snow_df
+        snow_df = session.sql(query).collect()
+        pandas_df = pd.DataFrame(snow_df)
+        return pandas_df
     except Exception as e:
         st.error(f"Failed to execute query or process data: {str(e)}")
         return None
