@@ -216,9 +216,9 @@ if mandrill_df is not None and conversion_df is not None:
         for d in details:
             if d.get('ua') is None:
                 continue
-            if 'Mobile' in d['ua']:
+            if 'Mobile' in d['ua'] or 'OS X' in d['ua']:
                 return 'mobile'
-            elif 'Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']:
+            elif 'Windows' in d['ua'] or 'Linux' in d['ua']:
                 return 'desktop'
         return 'unknown'
 
