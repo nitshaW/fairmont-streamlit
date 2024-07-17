@@ -212,7 +212,7 @@ if mandrill_df is not None and conversion_df is not None:
 
     mandrill_df['DATA_OPENS_DETAIL'] = mandrill_df['DATA_OPENS_DETAIL'].fillna('[]').apply(parse_json)
     mandrill_df['device_type'] = mandrill_df['DATA_OPENS_DETAIL'].apply(lambda details: [
-        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') else 'unknown' for d in details
+        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') and ('Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']) else 'unknown' for d in details
     ])
     
     mandrill_df['mobile_opens'] = mandrill_df.apply(lambda row: row['device_type'].count('mobile') if row['OPEN'] == 1 else 0, axis=1)
@@ -228,7 +228,7 @@ if mandrill_df is not None and conversion_df is not None:
     # Calculate device comparisons for clicks
     mandrill_df['DATA_CLICKS_DETAIL'] = mandrill_df['DATA_CLICKS_DETAIL'].fillna('[]').apply(parse_json)
     mandrill_df['device_type_clicks'] = mandrill_df['DATA_CLICKS_DETAIL'].apply(lambda details: [
-        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') else 'unknown' for d in details
+        'mobile' if d and d.get('ua') and 'Mobile' in d['ua'] else 'desktop' if d and d.get('ua') and ('Windows' in d['ua'] or 'Linux' in d['ua'] or 'OS X' in d['ua']) else 'unknown' for d in details
     ])
 
     mandrill_df['mobile_clicks'] = mandrill_df.apply(lambda row: row['device_type_clicks'].count('mobile') if row['CLICKS'] == 1 else 0, axis=1)
@@ -271,54 +271,6 @@ if mandrill_df is not None and conversion_df is not None:
     )
 
     st.plotly_chart(fig)
-
-    # # Display filtered data tables
-    # st.markdown("## 📄 Filtered Data Tables")
-    # st.markdown("### Automatic Emails 7 Days Data")
-    # st.dataframe(mandrill_7days)
-    # st.markdown("### Conversion Data 7 Days")
-    # st.dataframe(conversion_7days)
-    # st.markdown("### Automatic Emails 60 Days Data")
-    # st.dataframe(mandrill_60days)
-    # st.markdown("### Conversion Data 60 Days")
-    # st.dataframe(conversion_60days)
-
-    # # Downloadable CSVs
-    # def convert_df_to_csv(df):
-    #     return df.to_csv(index=False).encode('utf-8')
-
-    # csv_mandrill_7days = convert_df_to_csv(mandrill_7days)
-    # csv_conversion_7days = convert_df_to_csv(conversion_7days)
-    # csv_mandrill_60days = convert_df_to_csv(mandrill_60days)
-    # csv_conversion_60days = convert_df_to_csv(conversion_60days)
-
-    # st.download_button(
-    #     label="Download Automatic Emails 7 Days Data as CSV",
-    #     data=csv_mandrill_7days,
-    #     file_name='automatic_emails_7_days.csv',
-    #     mime='text/csv',
-    # )
-
-    # st.download_button(
-    #     label="Download Conversion Data 7 Days as CSV",
-    #     data=csv_conversion_7days,
-    #     file_name='conversion_data_7_days.csv',
-    #     mime='text/csv',
-    # )
-
-    # st.download_button(
-    #     label="Download Automatic Emails 60 Days Data as CSV",
-    #     data=csv_mandrill_60days,
-    #     file_name='automatic_emails_60_days.csv',
-    #     mime='text/csv',
-    # )
-
-    # st.download_button(
-    #     label="Download Conversion Data 60 Days as CSV",
-    #     data=csv_conversion_60days,
-    #     file_name='conversion_data_60_days.csv',
-    #     mime='text/csv',
-    # )
 
 else:
     st.error("Failed to retrieve data.")
