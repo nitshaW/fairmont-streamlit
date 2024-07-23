@@ -159,11 +159,11 @@ if df is not None:
 
     with chart_tab:
         fig_attendance = px.line(chart_data_attendance, x='Month', y='Attendance', color='Item', title='Attendance Over Time',
-                                 labels={'Month': 'Date', 'Attendance': 'Attendance'})
+                                 labels={'Month': 'Date', 'Attendance': 'Attendance'}, markers=True)
         st.plotly_chart(fig_attendance, use_container_width=True)
         
         fig_value = px.line(chart_data_value, x='Month', y='Value', color='Item', title='Value Over Time',
-                            labels={'Month': 'Date', 'Value': 'Value'})
+                            labels={'Month': 'Date', 'Value': 'Value'}, markers=True)
         st.plotly_chart(fig_value, use_container_width=True)
 
     with aggregated_tab:
