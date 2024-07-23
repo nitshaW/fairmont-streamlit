@@ -116,10 +116,10 @@ if df is not None:
     
     if date_filter_option == "Transaction Date":
         if len(date_range) == 2:
-            df = df[(df['Transaction Date'] >= date_range[0]) & (df['Transaction Date'] <= date_range[1])]
+            df = df[(df['Transaction Date'] >= pd.to_datetime(date_range[0])) & (df['Transaction Date'] <= pd.to_datetime(date_range[1]))]
     else:
         if len(date_range) == 2:
-            df = df[(df['Event Date'] >= date_range[0]) & (df['Event Date'] <= date_range[1])]
+            df = df[(df['Event Date'] >= pd.to_datetime(date_range[0])) & (df['Event Date'] <= pd.to_datetime(date_range[1]))]
 
     selected_source = st.sidebar.multiselect("Select Source", df['Source'].unique())
     if selected_source:
