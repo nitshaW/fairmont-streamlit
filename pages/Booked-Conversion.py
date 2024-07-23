@@ -46,6 +46,9 @@ def get_dataframe(query):
         # Convert 'Booked Year Month' from YYYYMM to datetime
         snow_df['BOOKED_MONTH'] = pd.to_datetime(snow_df['BOOKED_MONTH'].astype(str) + '01', format='%Y%m%d')
 
+        # Replace 0 or NaN in 'Value' with 'ValueAdded'
+        snow_df['VALUE'] = snow_df.apply(lambda row: row['VALUEADDED'] if pd.isna(row['VALUE']) or row['VALUE'] == 0 else row['VALUE'], axis=1)
+
         # Rename columns
         snow_df.rename(columns={
             'BOOKED_MONTH': 'Booked Year Month',
@@ -57,6 +60,7 @@ def get_dataframe(query):
             'BOOKED': 'Net Booked',
             'ATTENDANCE': 'Attendance',
             'VALUE': 'Value',
+            'VALUEADDED': 'ValueAdded',
             'CANCELLED': 'Cancelled',
             'OTHER_STATUS': 'Other Status'
         }, inplace=True)

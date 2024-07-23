@@ -53,6 +53,7 @@ def get_dataframe(query):
             'product_category': 'Department',
             'tb_guests': 'Attendance',
             'tb_subtotalagree': 'Value',
+            'added_price': 'ValueAdded',
             'source': 'Source',
             'tb_transdate': 'Transaction Date',
             'ti_caldate': 'Event Date',
@@ -70,6 +71,12 @@ def get_dataframe(query):
         snow_df['Transaction Status'] = snow_df.apply(
             lambda row: 'Charged' if (row['Transaction Status'] in ['0', '7', None, ''] or row['tb_action'] == 'charge') else
                         'Refunded' if (row['Transaction Status'] == '9' or row['tb_action'] == 'refund') else row['Transaction Status'],
+            axis=1
+        )
+
+        # Handle Value column with ValueAdded
+        snow_df['Value'] = snow_df.apply(
+            lambda row: row['ValueAdded'] if pd.isna(row['Value']) or row['Value'] == 0 else row['Value'],
             axis=1
         )
 
