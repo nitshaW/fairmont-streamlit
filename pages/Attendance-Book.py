@@ -62,6 +62,12 @@ def get_dataframe(query):
             'p_currentstatus': 'Booking Status',
             'ti_status': 'Transaction Status'
         }, inplace=True)
+        
+        # Define the list of sources to keep
+        sources_to_keep = ['guestportal', 'internal', '', 'fairmontbanff']
+
+        # Filter the DataFrame to keep only the rows where 'Source' is in the specified list
+        snow_df = snow_df[snow_df['Source'].isin(sources_to_keep)]
 
         # Convert 'Transaction Date' and 'Event Date' to datetime
         snow_df['Transaction Date'] = pd.to_datetime(snow_df['Transaction Date'], format='%Y-%m-%d')
