@@ -64,7 +64,7 @@ def get_dataframe(query):
             'CANCELLED': 'Cancelled',
             'OTHER_STATUS': 'Other Status'
         }, inplace=True)
-
+        
         # Format 'Booked Year Month' to show only year and month
         snow_df['Booked Year Month'] = snow_df['Booked Year Month'].dt.strftime('%Y-%m')
 
