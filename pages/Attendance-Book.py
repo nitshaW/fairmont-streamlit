@@ -155,7 +155,7 @@ if df is not None:
     chart_data_attendance = df.groupby(['Month', 'Item']).agg({'Attendance': 'sum'}).reset_index()
     chart_data_value = df.groupby(['Month', 'Item']).agg({'Value': 'sum'}).reset_index()
 
-    chart_tab, aggregated_tab, value_dataframe_tab = st.tabs(["Charts", "Aggregated Tabular Data", "Tabular Data"])
+    aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
@@ -220,7 +220,7 @@ if df is not None:
         filtered_df_with_total = pd.concat([filtered_df, grand_total])
         csv_data = convert_df_to_csv(filtered_df_with_total)
         st.download_button(label="Download Attendance vs Booked Data as CSV", data=csv_data, file_name='attendance_vs_booked_data.csv', mime='text/csv')
-    
+
     with chart_tab:
         fig_attendance = px.line(chart_data_attendance, x='Month', y='Attendance', color='Item', title='Attendance Over Time',
                                  labels={'Month': 'Date', 'Attendance': 'Attendance'}, markers=True)
