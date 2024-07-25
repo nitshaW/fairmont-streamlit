@@ -141,7 +141,7 @@ if df is not None:
         grand_total = grand_total.applymap(lambda x: f'{x:.2f}')
         
         # Display data without grand total row in full height
-        st.dataframe(filtered_df, height=600, width=None)  
+        st.dataframe(filtered_df, height=600, use_container_width=True)  
 
         # Display grand total row separately with fixed column widths
         st.write("Grand Total")
