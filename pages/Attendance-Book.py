@@ -220,8 +220,8 @@ if df is not None:
         filtered_df_with_total = pd.concat([filtered_df, grand_total])
         csv_data = convert_df_to_csv(filtered_df_with_total)
         st.download_button(label="Download Attendance vs Booked Data as CSV", data=csv_data, file_name='attendance_vs_booked_data.csv', mime='text/csv')
-        
-        with chart_tab:
+    
+    with chart_tab:
         fig_attendance = px.line(chart_data_attendance, x='Month', y='Attendance', color='Item', title='Attendance Over Time',
                                  labels={'Month': 'Date', 'Attendance': 'Attendance'}, markers=True)
         st.plotly_chart(fig_attendance, use_container_width=True)
