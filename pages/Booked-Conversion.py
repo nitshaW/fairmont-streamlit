@@ -110,14 +110,8 @@ if df is not None:
     # Order data by 'Booked Year Month' in descending order
     df = df.sort_values(by='Booked Year Month', ascending=False)
 
-    # Create plot
-    value_chart_tab, value_dataframe_tab = st.tabs(["Chart", "Tabular Data"])
-    
-    with value_chart_tab:
-        fig = px.line(df, x='Booked Year Month', y='Conversion', color='Item Name', title='Conversion Over Time', 
-                      markers=True, hover_data=['Department'])
-        st.plotly_chart(fig, use_container_width=True)
-        
+    value_dataframe_tab, value_chart_tab = st.tabs(["Tabular Data", "Chart"])
+
     with value_dataframe_tab:
         st.write("Booked-Conversion Data")
         renamed_columns = [
@@ -162,6 +156,11 @@ if df is not None:
         filtered_df_with_total = pd.concat([filtered_df, grand_total])
         csv_data = convert_df_to_csv(filtered_df_with_total)
         st.download_button(label="Download Booked-Conversion as CSV", data=csv_data, file_name='booked_conversion_data.csv', mime='text/csv')
+
+    with value_chart_tab:
+        fig = px.line(df, x='Booked Year Month', y='Conversion', color='Item Name', title='Conversion Over Time', 
+                      markers=True, hover_data=['Department'])
+        st.plotly_chart(fig, use_container_width=True)
 
 else:
     st.error("Failed to retrieve data.")
