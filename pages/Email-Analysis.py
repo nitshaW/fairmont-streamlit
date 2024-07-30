@@ -11,9 +11,12 @@ st.title("Fairmont Email Analysis")
 @st.cache_resource
 def get_session():
     try:
-        return get_active_session()
+        session = get_active_session()
+        # Verify session by executing a simple query
+        session.sql("SELECT 1").collect()
+        return session
     except Exception as e:
-        st.error(f"Failed to get active session: {str(e)}")
+        st.warning(f"Active session not found or token expired: {str(e)}. Re-authenticating...")
         pars = {
             "account": st.secrets["snowflake"]["account"],
             "user": st.secrets["snowflake"]["user"],
