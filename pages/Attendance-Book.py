@@ -21,7 +21,8 @@ def get_session():
             "password": st.secrets["snowflake"]["password"],
             "warehouse": st.secrets["snowflake"]["warehouse"],
             "role": st.secrets["snowflake"]["role"],
-            "database": st.secrets["snowflake"]["database"]
+            "database": st.secrets["snowflake"]["database"],
+            "client_session_keep_alive": True
         }
         return Session.builder.configs(pars).create()
 
