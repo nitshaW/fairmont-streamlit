@@ -3,19 +3,17 @@ from snowflake.snowpark import Session
 import pandas as pd
 from snowflake.snowpark.context import get_active_session
 import os
-import configparser
 
 st.set_page_config(layout="wide")
 st.title("Fairmont Email Analysis")
-
-#test
 
 # Define a function to get a Snowflake session
 @st.cache_resource
 def get_session():
     try:
         return get_active_session()
-    except:
+    except Exception as e:
+        st.error(f"Failed to get active session: {str(e)}")
         pars = {
             "account": st.secrets["snowflake"]["account"],
             "user": st.secrets["snowflake"]["user"],
@@ -58,7 +56,7 @@ st.markdown("## 🔍 Search the Table")
 search_input = st.text_input("Type to search the table", "")
 
 # Filter the dataframe based on the search input
-if search_input:
+if df is not None and search_input:
     df = df[df.apply(lambda row: row.astype(str).str.contains(search_input, case=False).any(), axis=1)]
 
 # Display the table result
