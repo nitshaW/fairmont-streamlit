@@ -56,7 +56,7 @@ query_conversion = """
     FROM 
         SALES_ANALYTICS.PUBLIC.FAIRMONT_EMAIL_CONVERSION
     WHERE 
-        createtstamp_notification BETWEEN '2010-01-01 00:00:00.000' AND '2050-12-31 23:59:59.999'
+        "createtstamp_notification" BETWEEN '2010-01-01 00:00:00.000' AND '2050-12-31 23:59:59.999'
     """
 
 # Use the function to retrieve data
