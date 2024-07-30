@@ -76,8 +76,8 @@ if mandrill_df is not None and conversion_df is not None:
     conversion_df['createtstamp_notification'] = pd.to_datetime(conversion_df['createtstamp_notification']).dt.tz_localize(None)
 
     # Ensure there is data in the expected date range
-    st.write("Data TS Date Range in Mandrill DF:", mandrill_df['DATA_TS_DATE'].min(), "to", mandrill_df['DATA_TS_DATE'].max())
-    st.write("Create Tstamp Notification Date Range in Conversion DF:", conversion_df['createtstamp_notification'].min(), "to", conversion_df['createtstamp_notification'].max())
+    # st.write("Data TS Date Range in Mandrill DF:", mandrill_df['DATA_TS_DATE'].min(), "to", mandrill_df['DATA_TS_DATE'].max())
+    # st.write("Create Tstamp Notification Date Range in Conversion DF:", conversion_df['createtstamp_notification'].min(), "to", conversion_df['createtstamp_notification'].max())
 
     # Set the date range to be within the available data
     available_start_date = max(mandrill_df['DATA_TS_DATE'].min(), conversion_df['createtstamp_notification'].min())
@@ -104,8 +104,8 @@ if mandrill_df is not None and conversion_df is not None:
     conversion_df_filtered = conversion_df[(conversion_df['createtstamp_notification'] >= start_date) & (conversion_df['createtstamp_notification'] < end_date)]
 
     # Display the number of records found in the date range
-    st.write(f"Records in Mandrill DF for selected date range: {len(mandrill_df_filtered)}")
-    st.write(f"Records in Conversion DF for selected date range: {len(conversion_df_filtered)}")
+    # st.write(f"Records in Mandrill DF for selected date range: {len(mandrill_df_filtered)}")
+    # st.write(f"Records in Conversion DF for selected date range: {len(conversion_df_filtered)}")
 
     # st.write("Filtered Mandrill DataFrame")
     # st.dataframe(mandrill_df_filtered)
@@ -118,8 +118,8 @@ if mandrill_df is not None and conversion_df is not None:
         st.warning("No data available for the selected date range. Please select a different range.")
     else:
         # Calculate metrics for "Automatic Emails 7 days"
-        st.write("Data for Automatic Emails 7 days")
-        mandrill_7days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        # st.write("Data for Automatic Emails 7 days")
+        # mandrill_7days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
         st.write(mandrill_7days)
         emails_sent_7 = mandrill_7days['DATA_ID'].nunique()
         emails_delivered_7 = mandrill_7days['SENT'].sum()
@@ -160,8 +160,8 @@ if mandrill_df is not None and conversion_df is not None:
         col12.metric("", "")
 
         # Calculate metrics for "Automatic Emails 60 days"
-        st.write("Data for Automatic Emails 60 days")
-        mandrill_60days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'] != 'days:7') | (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) | (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        # st.write("Data for Automatic Emails 60 days")
+        # mandrill_60days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'] != 'days:7') | (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) | (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
         st.write(mandrill_60days)
         emails_sent_60 = mandrill_60days['DATA_ID'].nunique()
         emails_delivered_60 = mandrill_60days['SENT'].sum()
@@ -202,8 +202,8 @@ if mandrill_df is not None and conversion_df is not None:
         col12.metric("", "")
 
         # Calculate metrics for "Guest Services Emails"
-        st.write("Data for Guest Services Emails")
-        guest_services = mandrill_df_filtered[(mandrill_df_filtered['DATA_SUBJECT'] == 'Personalize My Guest Experience at Fairmont Banff Springs') | (mandrill_df_filtered['NOTIFICATION_TAG'] == 'Personalize My Guest Experience at Fairmont Banff Springs')]
+        # st.write("Data for Guest Services Emails")
+        # guest_services = mandrill_df_filtered[(mandrill_df_filtered['DATA_SUBJECT'] == 'Personalize My Guest Experience at Fairmont Banff Springs') | (mandrill_df_filtered['NOTIFICATION_TAG'] == 'Personalize My Guest Experience at Fairmont Banff Springs')]
         st.write(guest_services)
         emails_sent_gs = guest_services['DATA_ID'].nunique()
         emails_delivered_gs = guest_services['SENT'].sum()
