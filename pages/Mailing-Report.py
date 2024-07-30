@@ -119,7 +119,7 @@ if mandrill_df is not None and conversion_df is not None:
     else:
         # Calculate metrics for "Automatic Emails 7 days"
         # st.write("Data for Automatic Emails 7 days")
-        # mandrill_7days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        mandrill_7days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
         st.write(mandrill_7days)
         emails_sent_7 = mandrill_7days['DATA_ID'].nunique()
         emails_delivered_7 = mandrill_7days['SENT'].sum()
