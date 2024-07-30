@@ -1,8 +1,6 @@
 import streamlit as st
 from snowflake.snowpark import Session
 import pandas as pd
-import os
-import configparser
 from datetime import datetime, timedelta
 import json
 import plotly.express as px
@@ -79,6 +77,9 @@ if mandrill_df is not None and conversion_df is not None:
     # Set the date range to be within the available data
     available_start_date = max(mandrill_df['DATA_TS_DATE'].min(), conversion_df['createtstamp_notification'].min())
     available_end_date = min(mandrill_df['DATA_TS_DATE'].max(), conversion_df['createtstamp_notification'].max())
+
+    # Adjust available_end_date to ensure it includes records up to the latest available date
+    available_end_date = mandrill_df['DATA_TS_DATE'].max()
 
     # Date range filter for both dataframes
     date_range = st.sidebar.date_input("Select date range", [available_start_date.date(), available_end_date.date()])
