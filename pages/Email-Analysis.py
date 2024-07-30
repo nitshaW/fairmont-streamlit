@@ -3,6 +3,7 @@ from snowflake.snowpark import Session
 import pandas as pd
 from snowflake.snowpark.context import get_active_session
 import os
+import configparser
 
 st.set_page_config(layout="wide")
 st.title("Fairmont Email Analysis")
@@ -11,12 +12,8 @@ st.title("Fairmont Email Analysis")
 @st.cache_resource
 def get_session():
     try:
-        session = get_active_session()
-        # Verify session by executing a simple query
-        session.sql("SELECT 1").collect()
-        return session
-    except Exception as e:
-        st.warning(f"Active session not found or token expired: {str(e)}. Re-authenticating...")
+        return get_active_session()
+    except:
         pars = {
             "account": st.secrets["snowflake"]["account"],
             "user": st.secrets["snowflake"]["user"],
@@ -59,7 +56,7 @@ st.markdown("## 🔍 Search the Table")
 search_input = st.text_input("Type to search the table", "")
 
 # Filter the dataframe based on the search input
-if df is not None and search_input:
+if search_input:
     df = df[df.apply(lambda row: row.astype(str).str.contains(search_input, case=False).any(), axis=1)]
 
 # Display the table result
