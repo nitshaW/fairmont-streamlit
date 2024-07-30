@@ -8,6 +8,8 @@ import configparser
 st.set_page_config(layout="wide")
 st.title("Fairmont Email Analysis")
 
+#test
+
 # Define a function to get a Snowflake session
 @st.cache_resource
 def get_session():
