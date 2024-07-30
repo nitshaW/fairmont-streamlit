@@ -100,8 +100,8 @@ if mandrill_df is not None and conversion_df is not None:
     st.write(f"Start Date: {start_date}")
     st.write(f"End Date: {end_date - timedelta(seconds=1)}")
 
-    mandrill_df_filtered = mandrill_df[(mandrill_df['DATA_TS_DATE'] >= start_date) & (mandrill_df['DATA_TS_DATE'] < end_date)]
-    conversion_df_filtered = conversion_df[(conversion_df['createtstamp_notification'] >= start_date) & (conversion_df['createtstamp_notification'] < end_date)]
+    mandrill_df_filtered = mandrill_df[(mandrill_df['DATA_TS_DATE'] >= start_date) & (mandrill_df['DATA_TS_DATE'] <= end_date)]
+    conversion_df_filtered = conversion_df[(conversion_df['createtstamp_notification'] >= start_date) & (conversion_df['createtstamp_notification'] <= end_date)]
 
     # Display the number of records found in the date range
     # st.write(f"Records in Mandrill DF for selected date range: {len(mandrill_df_filtered)}")
