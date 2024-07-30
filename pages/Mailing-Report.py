@@ -120,7 +120,7 @@ if mandrill_df is not None and conversion_df is not None:
         # Calculate metrics for "Automatic Emails 7 days"
         # st.write("Data for Automatic Emails 7 days")
         mandrill_7days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
-        st.write(mandrill_7days)
+        # st.write(mandrill_7days)
         emails_sent_7 = mandrill_7days['DATA_ID'].nunique()
         emails_delivered_7 = mandrill_7days['SENT'].sum()
         emails_opened_7 = mandrill_7days['OPEN'].sum()
@@ -161,8 +161,8 @@ if mandrill_df is not None and conversion_df is not None:
 
         # Calculate metrics for "Automatic Emails 60 days"
         # st.write("Data for Automatic Emails 60 days")
-        # mandrill_60days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'] != 'days:7') | (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) | (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
-        st.write(mandrill_60days)
+        mandrill_60days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'] != 'days:7') | (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) | (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        # st.write(mandrill_60days)
         emails_sent_60 = mandrill_60days['DATA_ID'].nunique()
         emails_delivered_60 = mandrill_60days['SENT'].sum()
         emails_opened_60 = mandrill_60days['OPEN'].sum()
@@ -203,8 +203,8 @@ if mandrill_df is not None and conversion_df is not None:
 
         # Calculate metrics for "Guest Services Emails"
         # st.write("Data for Guest Services Emails")
-        # guest_services = mandrill_df_filtered[(mandrill_df_filtered['DATA_SUBJECT'] == 'Personalize My Guest Experience at Fairmont Banff Springs') | (mandrill_df_filtered['NOTIFICATION_TAG'] == 'Personalize My Guest Experience at Fairmont Banff Springs')]
-        st.write(guest_services)
+        guest_services = mandrill_df_filtered[(mandrill_df_filtered['DATA_SUBJECT'] == 'Personalize My Guest Experience at Fairmont Banff Springs') | (mandrill_df_filtered['NOTIFICATION_TAG'] == 'Personalize My Guest Experience at Fairmont Banff Springs')]
+        # st.write(guest_services)
         emails_sent_gs = guest_services['DATA_ID'].nunique()
         emails_delivered_gs = guest_services['SENT'].sum()
         emails_opened_gs = guest_services['OPEN'].sum()
