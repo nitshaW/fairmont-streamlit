@@ -132,7 +132,7 @@ if mandrill_df is not None and conversion_df is not None:
 
         # Calculate conversion rate for "Automatic Emails 7 days"
         conversion_7days = conversion_df_filtered[(conversion_df_filtered['extra_notification'] == 'days:7') & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
-        st.write(conversion_7days)
+        # st.write(conversion_7days)
         conversion_rate_7 = (conversion_7days['id_fellowship'].dropna().nunique() / conversion_7days['id_notification'].dropna().nunique()) if conversion_7days['id_notification'].dropna().nunique() else 0
 
         # Calculate attendance and quantity for "Automatic Emails 7 days"
@@ -174,7 +174,7 @@ if mandrill_df is not None and conversion_df is not None:
 
         # Calculate conversion rate for "Automatic Emails 60 days"
         conversion_60days = conversion_df_filtered[((conversion_df_filtered['extra_notification'] != 'days:7') | (conversion_df_filtered['extra_notification'].isna()) | (conversion_df_filtered['extra_notification'] == '')) & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
-        st.write(conversion_60days)
+        # st.write(conversion_60days)
         conversion_rate_60 = (conversion_60days['id_fellowship'].dropna().nunique() / conversion_60days['id_notification'].dropna().nunique()) if conversion_60days['id_notification'].dropna().nunique() else 0
 
         # Calculate attendance and quantity for "Automatic Emails 60 days"
