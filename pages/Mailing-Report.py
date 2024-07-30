@@ -22,7 +22,8 @@ def get_session():
             "password": st.secrets["snowflake"]["password"],
             "warehouse": st.secrets["snowflake"]["warehouse"],
             "role": st.secrets["snowflake"]["role"],
-            "database": st.secrets["snowflake"]["database"]
+            "database": st.secrets["snowflake"]["database"],
+            "client_session_keep_alive": True
         }
         return Session.builder.configs(pars).create()
 
@@ -47,7 +48,8 @@ query_mandrill = """
         *
     FROM 
         SALES_ANALYTICS.PUBLIC.FAIRMONT_MANDRILL_NOTIFICATIONS
-    WHERE DATA_TS_DATE >= '2023-03-01' and DATA_TS_DATE <= '2030-12-31'
+    WHERE 
+        DATA_TS_DATE >= '2023-03-01' and DATA_TS_DATE <= '2030-12-31'
     """
     
 query_conversion = """
