@@ -69,11 +69,12 @@ if mandrill_df is not None and conversion_df is not None:
     st.write("Data TS Date Range in Mandrill DF:", mandrill_df['DATA_TS_DATE'].min(), "to", mandrill_df['DATA_TS_DATE'].max())
     st.write("Create Tstamp Notification Date Range in Conversion DF:", conversion_df['createtstamp_notification'].min(), "to", conversion_df['createtstamp_notification'].max())
 
+    # Set the date range to be within the available data
+    available_start_date = max(mandrill_df['DATA_TS_DATE'].min(), conversion_df['createtstamp_notification'].min())
+    available_end_date = min(mandrill_df['DATA_TS_DATE'].max(), conversion_df['createtstamp_notification'].max())
+
     # Date range filter for both dataframes
-    date_range = st.sidebar.date_input("Select date range", [
-        mandrill_df['DATA_TS_DATE'].min().date(),
-        mandrill_df['DATA_TS_DATE'].max().date()
-    ])
+    date_range = st.sidebar.date_input("Select date range", [available_start_date.date(), available_end_date.date()])
     start_date, end_date = date_range[0], date_range[1]
 
     # Ensure the end date includes the entire day
