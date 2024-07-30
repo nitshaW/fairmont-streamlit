@@ -46,6 +46,8 @@ query_mandrill = """
         *
     FROM 
         SALES_ANALYTICS.PUBLIC.FAIRMONT_MANDRILL_NOTIFICATIONS
+    WHERE 
+        DATA_TS_DATE >= '2023-03-01' and DATA_TS_DATE <= '2030-12-31'
     """
     
 query_conversion = """
