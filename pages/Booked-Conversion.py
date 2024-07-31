@@ -59,8 +59,8 @@ def get_dataframe(query):
             'CONVERSION': 'Conversion',
             'TRANSACTIONS': 'Gross Booked',
             'BOOKED': 'Net Booked',
-            'ATTENDANCE': 'Attendance',
-            'VALUE': 'Value',
+            'ATTENDANCE': 'Net Attendance',
+            'VALUE': 'Net Value',
             'VALUEADDED': 'ValueAdded',
             'CANCELLED': 'Cancelled',
             'OTHER_STATUS': 'Other Status'
@@ -123,7 +123,7 @@ if df is not None:
         st.write("Booked-Conversion Data")
         renamed_columns = [
             'Booked Year Month', 'Item Name', 'Department', 'View', 'Conversion',
-            'Gross Booked', 'Net Booked', 'Attendance', 'Value', 'Cancelled', 'Other Status'
+            'Gross Booked', 'Net Booked', 'Net Attendance', 'Net Value', 'Cancelled', 'Other Status'
         ]
         filtered_df = df[renamed_columns]
 
@@ -136,7 +136,7 @@ if df is not None:
         grand_total['Conversion'] = average_conversion
         
         # Remove non-numeric columns from the grand total row
-        grand_total = grand_total.reindex(columns=['View', 'Conversion', 'Gross Booked', 'Net Booked', 'Attendance', 'Value', 'Cancelled', 'Other Status'])
+        grand_total = grand_total.reindex(columns=['View', 'Conversion', 'Gross Booked', 'Net Booked', 'Net Attendance', 'Net Value', 'Cancelled', 'Other Status'])
         
         # Rename 'Conversion' to 'Average Conversion' in grand total row
         grand_total.rename(columns={'Conversion': 'Average Conversion'}, inplace=True)
