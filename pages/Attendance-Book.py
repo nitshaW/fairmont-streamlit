@@ -215,19 +215,19 @@ if df is not None:
     #     # Display data without grand total row in full height
     #     st.dataframe(filtered_df, height=600, use_container_width=True)  
 
-        # Display grand total row separately with fixed column widths
-        st.write("Grand Total")
-        grand_total_style = grand_total.style.set_properties(
-            **{'text-align': 'left', 'white-space': 'nowrap', 'overflow': 'hidden', 'text-overflow': 'ellipsis'}
-        )
-        st.write(grand_total_style.to_html(), unsafe_allow_html=True)
+        # # Display grand total row separately with fixed column widths
+        # st.write("Grand Total")
+        # grand_total_style = grand_total.style.set_properties(
+        #     **{'text-align': 'left', 'white-space': 'nowrap', 'overflow': 'hidden', 'text-overflow': 'ellipsis'}
+        # )
+        # st.write(grand_total_style.to_html(), unsafe_allow_html=True)
 
-        st.markdown("<br>", unsafe_allow_html=True)  # Add space above the download button
+        # st.markdown("<br>", unsafe_allow_html=True)  # Add space above the download button
 
-        # Allow CSV download
-        filtered_df_with_total = pd.concat([filtered_df, grand_total])
-        csv_data = convert_df_to_csv(filtered_df_with_total)
-        st.download_button(label="Download Attendance vs Booked Data as CSV", data=csv_data, file_name='attendance_vs_booked_data.csv', mime='text/csv')
+        # # Allow CSV download
+        # filtered_df_with_total = pd.concat([filtered_df, grand_total])
+        # csv_data = convert_df_to_csv(filtered_df_with_total)
+        # st.download_button(label="Download Attendance vs Booked Data as CSV", data=csv_data, file_name='attendance_vs_booked_data.csv', mime='text/csv')
 
     with chart_tab:
         fig_attendance = px.line(chart_data_attendance, x='Month', y='Net Attendance', color='Item', title='Attendance Over Time',
