@@ -40,6 +40,12 @@ def get_dataframe(query):
         st.error(f"Failed to execute query or process data: {str(e)}")
         return None
 
+# Clear cache button
+if st.button("Clear Cache"):
+    st.cache_data.clear()
+    st.cache_resource.clear()
+    st.experimental_rerun()
+
 # SQL queries
 query_mandrill = """
     SELECT 
