@@ -4,6 +4,8 @@ import pandas as pd
 from datetime import datetime, timedelta
 import json
 import plotly.express as px
+import os
+import configparser
 
 st.set_page_config(layout="wide")
 st.title("📊 Mailing Report")
@@ -39,6 +41,12 @@ def get_dataframe(query):
     except Exception as e:
         st.error(f"Failed to execute query or process data: {str(e)}")
         return None
+
+# Clear cache button
+if st.button("Clear Cache"):
+    st.cache_data.clear()
+    st.cache_resource.clear()
+    st.experimental_rerun()
 
 # SQL queries
 query_mandrill = """
