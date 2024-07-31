@@ -7,7 +7,7 @@ import os
 import configparser
 
 st.set_page_config(layout="wide")
-st.title("Attendance - Booked Analysis")
+st.title("Net Attendance - Booked Analysis")
 
 # Define a function to get a Snowflake session
 @st.cache_resource
