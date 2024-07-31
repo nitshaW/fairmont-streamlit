@@ -7,7 +7,7 @@ import os
 import configparser
 
 st.set_page_config(layout="wide")
-st.title("Attendance vs Booked Analysis")
+st.title("Attendance - Booked Analysis")
 
 # Define a function to get a Snowflake session
 @st.cache_resource
@@ -52,8 +52,8 @@ def get_dataframe(query):
         snow_df.rename(columns={
             'TI_ITEMNAME': 'Item',
             'PRODUCT_CATEGORY': 'Department',
-            'TB_GUESTS': 'Attendance',
-            'TB_SUBTOTALAGREE': 'Value',
+            'TB_GUESTS': 'Net Attendance',
+            'TB_SUBTOTALAGREE': 'Net Value',
             'ADDED_PRICE': 'ValueAdded',
             'SOURCE': 'Source',
             'TB_TRANSDATE': 'Transaction Date',
@@ -148,9 +148,9 @@ if df is not None:
     if selected_item:
         df = df[df['Item'].isin(selected_item)]
 
-    selected_booking_status = st.sidebar.multiselect("Select Booking Status", df['Booking Status'].unique())
-    if selected_booking_status:
-        df = df[df['Booking Status'].isin(selected_booking_status)]
+    # selected_booking_status = st.sidebar.multiselect("Select Booking Status", df['Booking Status'].unique())
+    # if selected_booking_status:
+    #     df = df[df['Booking Status'].isin(selected_booking_status)]
 
     selected_transaction_status = st.sidebar.multiselect("Select Transaction Status", df['Transaction Status'].unique())
     if selected_transaction_status:
@@ -159,14 +159,14 @@ if df is not None:
     # Group by month and create plot
     df['Month'] = pd.to_datetime(df[date_filter_option]).dt.to_period('M').dt.to_timestamp()
 
-    chart_data_attendance = df.groupby(['Month', 'Item']).agg({'Attendance': 'sum'}).reset_index()
+    chart_data_attendance = df.groupby(['Month', 'Item']).agg({'Net Attendance': 'sum'}).reset_index()
     chart_data_value = df.groupby(['Month', 'Item']).agg({'Value': 'sum'}).reset_index()
 
     aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
-        aggregated_df = df.groupby(['Item', 'Department']).agg({'Attendance': 'sum', 'Value': 'sum'}).reset_index()
+        aggregated_df = df.groupby(['Item', 'Department']).agg({'Net Attendance': 'sum', 'Value': 'sum'}).reset_index()
 
         # Calculate grand total row for aggregated data
         grand_total_aggregated = aggregated_df.select_dtypes(include=['number']).sum().to_frame().T
@@ -194,10 +194,10 @@ if df is not None:
         st.download_button(label="Download Aggregated Data as CSV", data=csv_data_aggregated, file_name='aggregated_data.csv', mime='text/csv')
 
     with value_dataframe_tab:
-        st.write("Attendance vs Booked Data")
+        st.write("Attendance - Booked Data")
         renamed_columns = [
             'Transaction Date', 'Event Date', 'Item', 'Venue', 'Department', 'Source',
-            'Network', 'Booking Status', 'Transaction Status', 'Attendance', 'Value'
+            'Network', 'Booking Status', 'Transaction Status', 'Net Attendance', 'Value'
         ]
         filtered_df = df[renamed_columns]
 
@@ -229,8 +229,8 @@ if df is not None:
         st.download_button(label="Download Attendance vs Booked Data as CSV", data=csv_data, file_name='attendance_vs_booked_data.csv', mime='text/csv')
 
     with chart_tab:
-        fig_attendance = px.line(chart_data_attendance, x='Month', y='Attendance', color='Item', title='Attendance Over Time',
-                                 labels={'Month': 'Date', 'Attendance': 'Attendance'}, markers=True)
+        fig_attendance = px.line(chart_data_attendance, x='Month', y='Net Attendance', color='Item', title='Attendance Over Time',
+                                 labels={'Month': 'Date', 'Net Attendance': 'Net Attendance'}, markers=True)
         st.plotly_chart(fig_attendance, use_container_width=True)
         
         fig_value = px.line(chart_data_value, x='Month', y='Value', color='Item', title='Value Over Time',
