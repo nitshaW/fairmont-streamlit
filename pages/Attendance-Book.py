@@ -41,27 +41,27 @@ def get_dataframe(query):
         snow_df = snow_df.drop_duplicates()
 
         # Replace nulls in specific columns with 'Unknown'
-        snow_df['ti_itemname'] = snow_df['ti_itemname'].fillna('Unknown')
-        snow_df['product_category'] = snow_df['product_category'].fillna('Unknown')
-        snow_df['source'] = snow_df['source'].fillna('Unknown')
-        snow_df['network'] = snow_df['network'].fillna('Unknown')
-        snow_df['vp_venuename'] = snow_df['vp_venuename'].fillna('Unknown')
-        snow_df['p_currentstatus'] = snow_df['p_currentstatus'].fillna('Unknown')
+        snow_df['TI_ITEMNAME'] = snow_df['TI_ITEMNAME'].fillna('Unknown')
+        snow_df['PRODUCT_CATEGORY'] = snow_df['PRODUCT_CATEGORY'].fillna('Unknown')
+        snow_df['SOURCE'] = snow_df['SOURCE'].fillna('Unknown')
+        snow_df['NETWORK'] = snow_df['NETWORK'].fillna('Unknown')
+        snow_df['VP_VENUENAME'] = snow_df['VP_VENUENAME'].fillna('Unknown')
+        snow_df['P_CURRENTSTATUS'] = snow_df['P_CURRENTSTATUS'].fillna('Unknown')
 
         # Rename columns
         snow_df.rename(columns={
-            'ti_itemname': 'Item',
-            'product_category': 'Department',
-            'tb_guests': 'Attendance',
-            'tb_subtotalagree': 'Value',
-            'added_price': 'ValueAdded',
-            'source': 'Source',
-            'tb_transdate': 'Transaction Date',
-            'ti_caldate': 'Event Date',
-            'network': 'Network',
-            'vp_venuename': 'Venue',
-            'p_currentstatus': 'Booking Status',
-            'ti_status': 'Transaction Status'
+            'TI_ITEMNAME': 'Item',
+            'PRODUCT_CATEGORY': 'Department',
+            'TB_GUESTS': 'Attendance',
+            'TB_SUBTOTALAGREE': 'Value',
+            'ADDED_PRICE': 'ValueAdded',
+            'SOURCE': 'Source',
+            'TB_TRANSDATE': 'Transaction Date',
+            'TI_CALDATE': 'Event Date',
+            'NETWORK': 'Network',
+            'VP_VENUENAME': 'Venue',
+            'P_CURRENTSTATUS': 'Booking Status',
+            'TI_STATUS': 'Transaction Status'
         }, inplace=True)
         
         # Define the list of sources to keep
