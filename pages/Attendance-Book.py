@@ -83,7 +83,7 @@ def get_dataframe(query):
 
         # Handle Value column with ValueAdded
         snow_df['Value'] = snow_df.apply(
-            lambda row: row['ValueAdded'] if pd.isna(row['Value']) or row['Value'] == 0 else row['Value'],
+            lambda row: row['ValueAdded'] if pd.isna(row['Net Value']) or row['Net Value'] == 0 else row['Value'],
             axis=1
         )
 
@@ -160,13 +160,13 @@ if df is not None:
     df['Month'] = pd.to_datetime(df[date_filter_option]).dt.to_period('M').dt.to_timestamp()
 
     chart_data_attendance = df.groupby(['Month', 'Item']).agg({'Net Attendance': 'sum'}).reset_index()
-    chart_data_value = df.groupby(['Month', 'Item']).agg({'Value': 'sum'}).reset_index()
+    chart_data_value = df.groupby(['Month', 'Item']).agg({'Net Value': 'sum'}).reset_index()
 
     aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
-        aggregated_df = df.groupby(['Item', 'Department']).agg({'Net Attendance': 'sum', 'Value': 'sum'}).reset_index()
+        aggregated_df = df.groupby(['Item', 'Department']).agg({'Net Attendance': 'sum', 'Net Value': 'sum'}).reset_index()
 
         # Calculate grand total row for aggregated data
         grand_total_aggregated = aggregated_df.select_dtypes(include=['number']).sum().to_frame().T
@@ -197,7 +197,7 @@ if df is not None:
         st.write("Attendance - Booked Data")
         renamed_columns = [
             'Transaction Date', 'Event Date', 'Item', 'Venue', 'Department', 'Source',
-            'Network', 'Booking Status', 'Transaction Status', 'Net Attendance', 'Value'
+            'Network', 'Booking Status', 'Transaction Status', 'Net Attendance', 'Net Value'
         ]
         filtered_df = df[renamed_columns]
 
@@ -233,8 +233,8 @@ if df is not None:
                                  labels={'Month': 'Date', 'Net Attendance': 'Net Attendance'}, markers=True)
         st.plotly_chart(fig_attendance, use_container_width=True)
         
-        fig_value = px.line(chart_data_value, x='Month', y='Value', color='Item', title='Value Over Time',
-                            labels={'Month': 'Date', 'Value': 'Value'}, markers=True)
+        fig_value = px.line(chart_data_value, x='Month', y='Net Value', color='Item', title='Net Value Over Time',
+                            labels={'Month': 'Date', 'Net Value': 'Net Value'}, markers=True)
         st.plotly_chart(fig_value, use_container_width=True)
 
 else:
