@@ -163,7 +163,7 @@ if df is not None:
     chart_data_value = df.groupby(['Month', 'Item']).agg({'Net Value': 'sum'}).reset_index()
 
     # aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
-    aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Charts"])
+    aggregated_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Charts"])
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
