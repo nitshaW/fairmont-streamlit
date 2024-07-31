@@ -83,7 +83,7 @@ def get_dataframe(query):
 
         # Handle Value column with ValueAdded
         snow_df['Net Value'] = snow_df.apply(
-            lambda row: row['ValueAdded'] if pd.isna(row['Net Value']) or row['Net Value'] == 0 else row['Value'],
+            lambda row: row['ValueAdded'] if pd.isna(row['Net Value']) or row['Net Value'] == 0 else row['Net Value'],
             axis=1
         )
 
