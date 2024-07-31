@@ -61,22 +61,22 @@ df = get_dataframe(query)
 df.rename(columns={
     'year_month': 'Year Month',
     'count_id_notification_not_equal': 'Email/60',
-    'count_id_fellowship_not_equal': 'Converted/60',
+    'count_id_fellowship_not_equal': 'Profile Converted/60',
     'count_transid_transbook_not_equal': 'Gross Booked/60',
     'sum_guests_transbook_not_equal': 'Gross Guests/60',
     'sum_subtotalagree_transbook_not_equal': 'Gross Value/60',
     'count_id_notification_equal': 'Email/7',
-    'count_id_fellowship_equal': 'Converted/7',
+    'count_id_fellowship_equal': 'Profile Converted/7',
     'count_transid_transbook_equal': 'Gross Booked/7',
     'sum_guests_transbook_equal': 'Gross Guests/7',
     'sum_subtotalagree_transbook_equal': 'Gross Value/7',
-    'conversion_percentage_not_equal': 'Conversion/60',
-    'conversion_percentage_equal': 'Conversion/7'
+    'conversion_percentage_not_equal': 'Conversion Rate/60',
+    'conversion_percentage_equal': 'Conversion Rate/7'
 }, inplace=True)
 
 # Ensure 'Conversion/60' and 'Conversion/7' have 2 decimal places and include a percentage sign
-df['Conversion/60'] = df['Conversion/60'].apply(lambda x: f'{x:.2f}%')
-df['Conversion/7'] = df['Conversion/7'].apply(lambda x: f'{x:.2f}%')
+df['Conversion Rate/60'] = df['Conversion Rate/60'].apply(lambda x: f'{x:.2f}%')
+df['Conversion Rate/7'] = df['Conversion Rate/7'].apply(lambda x: f'{x:.2f}%')
 
 # Order by 'Year Month' in descending order
 df.sort_values(by='Year Month', ascending=False, inplace=True)
