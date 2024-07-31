@@ -76,8 +76,8 @@ def get_dataframe(query):
 
         # Process 'Transaction Status' column
         snow_df['Transaction Status'] = snow_df.apply(
-            lambda row: 'Charged' if (row['Transaction Status'] in ['0', '7', None, ''] or row['tb_action'] == 'charge') else
-                        'Refunded' if (row['Transaction Status'] == '9' or row['tb_action'] == 'refund') else row['Transaction Status'],
+            lambda row: 'Charged' if (row['Transaction Status'] in ['0', '7', None, ''] or row['TB_ACTION'] == 'charge') else
+                        'Refunded' if (row['Transaction Status'] == '9' or row['TB_ACTION'] == 'refund') else row['Transaction Status'],
             axis=1
         )
 
