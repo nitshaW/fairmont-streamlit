@@ -162,7 +162,8 @@ if df is not None:
     chart_data_attendance = df.groupby(['Month', 'Item']).agg({'Net Attendance': 'sum'}).reset_index()
     chart_data_value = df.groupby(['Month', 'Item']).agg({'Net Value': 'sum'}).reset_index()
 
-    aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
+    # aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Tabular Data", "Charts"])
+    aggregated_tab, value_dataframe_tab, chart_tab = st.tabs(["Aggregated Tabular Data", "Charts"])
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
@@ -193,26 +194,26 @@ if df is not None:
         csv_data_aggregated = convert_df_to_csv(aggregated_df_with_total)
         st.download_button(label="Download Aggregated Data as CSV", data=csv_data_aggregated, file_name='aggregated_data.csv', mime='text/csv')
 
-    with value_dataframe_tab:
-        st.write("Attendance - Booked Data")
-        renamed_columns = [
-            'Transaction Date', 'Event Date', 'Item', 'Venue', 'Department', 'Source',
-            'Network', 'Booking Status', 'Transaction Status', 'Net Attendance', 'Net Value'
-        ]
-        filtered_df = df[renamed_columns]
+    # with value_dataframe_tab:
+    #     st.write("Attendance - Booked Data")
+    #     renamed_columns = [
+    #         'Transaction Date', 'Event Date', 'Item', 'Venue', 'Department', 'Source',
+    #         'Network', 'Booking Status', 'Transaction Status', 'Net Attendance', 'Net Value'
+    #     ]
+    #     filtered_df = df[renamed_columns]
 
-        # Calculate grand total row dynamically
-        grand_total = filtered_df.select_dtypes(include=['number']).sum().to_frame().T
-        grand_total.index = ['Grand Total']
+    #     # Calculate grand total row dynamically
+    #     grand_total = filtered_df.select_dtypes(include=['number']).sum().to_frame().T
+    #     grand_total.index = ['Grand Total']
 
-        # Round values to 2 decimal places
-        grand_total = grand_total.round(2)
+    #     # Round values to 2 decimal places
+    #     grand_total = grand_total.round(2)
 
-        # Format values to two decimal places as strings
-        grand_total = grand_total.applymap(lambda x: f'{x:.2f}')
+    #     # Format values to two decimal places as strings
+    #     grand_total = grand_total.applymap(lambda x: f'{x:.2f}')
         
-        # Display data without grand total row in full height
-        st.dataframe(filtered_df, height=600, use_container_width=True)  
+    #     # Display data without grand total row in full height
+    #     st.dataframe(filtered_df, height=600, use_container_width=True)  
 
         # Display grand total row separately with fixed column widths
         st.write("Grand Total")
