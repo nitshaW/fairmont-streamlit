@@ -97,6 +97,10 @@ if st.button("Clear Cache"):
     st.cache_data.clear()
     st.cache_resource.clear()
     st.experimental_rerun()
+    
+# Function to convert DataFrame to CSV
+def convert_df_to_csv(df):
+    return df.to_csv(index=False).encode('utf-8')
 
 # SQL query with fully qualified table name
 query = """
