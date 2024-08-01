@@ -44,7 +44,7 @@ def get_dataframe(query):
         snow_df['NETWORK'] = snow_df['NETWORK'].fillna('Unknown')
         snow_df['PRODUCT_CATEGORY'] = snow_df['PRODUCT_CATEGORY'].fillna('Unknown')
         snow_df['SOURCE'] = snow_df['SOURCE'].fillna('Unknown')
-        snow_df['VP_VENUENAME'] = snow_df['VP_VENUENAME'].fillna('Unknown')
+        snow_df['P_VENUENAME'] = snow_df['P_VENUENAME'].fillna('Unknown')
         snow_df['P_CURRENTSTATUS'] = snow_df['P_CURRENTSTATUS'].fillna('Unknown')
         snow_df['B_ITEMNAME'] = snow_df['B_ITEMNAME'].fillna('Unknown')
 
