@@ -63,10 +63,10 @@ def get_dataframe(query):
         }, inplace=True)
         
         # Define the list of sources to keep
-        # sources_to_keep = ['guestportal', 'internal', '', 'fairmontbanff']
+        sources_to_keep = ['guestportal', 'internal', '', 'fairmontbanff']
 
         # Filter the DataFrame to keep only the rows where 'Source' is in the specified list
-        # snow_df = snow_df[snow_df['Source'].isin(sources_to_keep)]
+        snow_df = snow_df[snow_df['Source'].isin(sources_to_keep)]
 
         # Convert Event Date' to datetime
         snow_df['Event Date'] = pd.to_datetime(snow_df['Event Date'], format='%Y-%m-%d')
