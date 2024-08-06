@@ -39,15 +39,43 @@ def get_dataframe(query):
 
         # Perform preprocessing on Snowflake using Snowpark DataFrame operations
         snow_df = snow_df.drop_duplicates()
+
+        # Replace nulls in specific columns with 'Unknown'
+        snow_df['NETWORK'] = snow_df['NETWORK'].fillna('Unknown')
+        snow_df['PRODUCT_CATEGORY'] = snow_df['PRODUCT_CATEGORY'].fillna('Unknown')
+        snow_df['SOURCE'] = snow_df['SOURCE'].fillna('Unknown')
+        snow_df['P_VENUENAME'] = snow_df['P_VENUENAME'].fillna('Unknown')
+        snow_df['P_CURRENTSTATUS'] = snow_df['P_CURRENTSTATUS'].fillna('Unknown')
+        snow_df['B_ITEMNAME'] = snow_df['B_ITEMNAME'].fillna('Unknown')
+
+        # Rename columns
+        snow_df.rename(columns={
+            'B_ITEMNAME': 'Item',
+            'PRODUCT_CATEGORY': 'Department',
+            'GUESTS': 'Net Attendance',
+            'B_VALUE': 'Net Value',
+            'ADDED_PRICE': 'ValueAdded',
+            'SOURCE': 'Source',
+            'P_CALDATE': 'Event Date',
+            'NETWORK': 'Network',
+            'P_VENUENAME': 'Venue',
+            'P_CURRENTSTATUS': 'Booking Status'
+        }, inplace=True)
         
         # Define the list of sources to keep
         sources_to_keep = ['guestportal', 'internal', '', 'fairmontbanff']
 
         # Filter the DataFrame to keep only the rows where 'Source' is in the specified list
-        snow_df = snow_df[snow_df['SOURCE'].isin(sources_to_keep)]
+        snow_df = snow_df[snow_df['Source'].isin(sources_to_keep)]
 
-        # Convert 'Event Date' to datetime
-        snow_df['EVENTDATE'] = pd.to_datetime(snow_df['EVENTDATE'], format='%Y-%m-%d')
+        # Convert Event Date' to datetime
+        snow_df['Event Date'] = pd.to_datetime(snow_df['Event Date'], format='%Y-%m-%d')
+
+        # Handle Value column with ValueAdded
+        snow_df['Net Value'] = snow_df.apply(
+            lambda row: row['ValueAdded'] if pd.isna(row['Net Value']) or row['Net Value'] == 0 else row['Net Value'],
+            axis=1
+        )
 
         return snow_df
     except Exception as e:
