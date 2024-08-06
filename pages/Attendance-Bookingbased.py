@@ -71,6 +71,7 @@ def get_dataframe(query):
         # Convert Event Date' to datetime
         snow_df['Event Date'] = pd.to_datetime(snow_df['Event Date'], format='%Y-%m-%d')
 
+
         # Handle Value column with ValueAdded
         snow_df['Net Value'] = snow_df.apply(
             lambda row: row['ValueAdded'] if pd.isna(row['Net Value']) or row['Net Value'] == 0 else row['Net Value'],
@@ -111,7 +112,7 @@ if df is not None:
     date_range = st.sidebar.date_input("Select Event Date Range", [])
     
     if len(date_range) == 2:
-        df = df[(df['Event Date'] >= pd.to_datetime(date_range[0])) & (df['Event Date'] <= pd.to_datetime(date_range[1]))]
+            df = df[(df['Event Date'] >= pd.to_datetime(date_range[0])) & (df['Event Date'] <= pd.to_datetime(date_range[1]))]
 
     selected_source = st.sidebar.multiselect("Select Source", df['Source'].unique())
     if selected_source:
@@ -120,6 +121,10 @@ if df is not None:
     selected_network = st.sidebar.multiselect("Select Network", df['Network'].unique())
     if selected_network:
         df = df[df['Network'].isin(selected_network)]
+
+    selected_department = st.sidebar.multiselect("Select Department", df['Department'].unique())
+    if selected_department:
+        df = df[df['Department'].isin(selected_department)]
 
     selected_venue = st.sidebar.multiselect("Select Venue", df['Venue'].unique())
     if selected_venue:
@@ -143,7 +148,7 @@ if df is not None:
 
     with aggregated_tab:
         st.write("Aggregated Tabular Data")
-        aggregated_df = df.groupby(['Item', 'Venue']).agg({'Net Attendance': 'sum', 'Net Value': 'sum'}).reset_index()
+        aggregated_df = df.groupby(['Item', 'Department']).agg({'Net Attendance': 'sum', 'Net Value': 'sum'}).reset_index()
 
         # Calculate grand total row for aggregated data
         grand_total_aggregated = aggregated_df.select_dtypes(include=['number']).sum().to_frame().T
@@ -172,7 +177,7 @@ if df is not None:
    
         st.write("Attendance - Booked Data")
         renamed_columns = [
-            'Event Date', 'Item', 'Venue', 'Source',
+            'Event Date', 'Item', 'Venue', 'Department', 'Source',
             'Network', 'Booking Status', 'Net Attendance', 'Net Value'
         ]
         filtered_df = df[renamed_columns]
