@@ -56,6 +56,7 @@ def get_dataframe(query):
             'ITEM_NAME': 'Item Name',
             'PRODUCT_CATEGORY': 'Department',
             'VIEWED': 'View',
+            'ITEMPURCHASED': 'Gross Quantity',
             'CONVERSION': 'Conversion',
             'TRANSACTIONS': 'Gross Booked',
             'BOOKED': 'Net Booked',
@@ -123,7 +124,7 @@ if df is not None:
         st.write("Booked-Conversion Data")
         renamed_columns = [
             'Booked Year Month', 'Item Name', 'Department', 'View', 'Conversion',
-            'Gross Booked', 'Net Booked', 'Net Attendance', 'Net Value', 'Cancelled', 'Other Status'
+            'Gross Booked', 'Gross Quantity', 'Net Booked', 'Net Attendance', 'Net Value', 'Cancelled', 'Other Status'
         ]
         filtered_df = df[renamed_columns]
 
