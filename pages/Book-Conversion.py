@@ -56,7 +56,7 @@ def get_dataframe(query):
             'ITEM_NAME': 'Item Name',
             'PRODUCT_CATEGORY': 'Department',
             'VIEWED': 'View',
-            'ITEMPURCHASED': 'Gross Quantity',
+            'ITEMSPURCHASED': 'Gross Quantity',
             'CONVERSION': 'Conversion',
             'TRANSACTIONS': 'Gross Booked',
             'BOOKED': 'Net Booked',
