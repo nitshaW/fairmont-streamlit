@@ -168,7 +168,7 @@ if mandrill_df is not None and conversion_df is not None:
         
         # Calculate metrics for "Automatic Emails 30 days"
         # st.write("Data for Automatic Emails 30 days")
-        mandrill_30days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:30') & (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) & (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        mandrill_30days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:30')  & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
         # st.write(mandrill_60days)
         emails_sent_30 = mandrill_30days['DATA_ID'].nunique()
         emails_delivered_30 = mandrill_30days['SENT'].sum()
@@ -213,7 +213,7 @@ if mandrill_df is not None and conversion_df is not None:
 
         # Calculate metrics for "Automatic Emails 60 days"
         # st.write("Data for Automatic Emails 60 days")
-        mandrill_60days = mandrill_df_filtered[((mandrill_df_filtered['NOTIFICATION_TAG'].isin(['days:', 'days:60'])) & (mandrill_df_filtered['NOTIFICATION_TAG'].isna()) & (mandrill_df_filtered['NOTIFICATION_TAG'] == '')) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        mandrill_60days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'].isin(['days:', 'days:60'])) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
         # st.write(mandrill_60days)
         emails_sent_60 = mandrill_60days['DATA_ID'].nunique()
         emails_delivered_60 = mandrill_60days['SENT'].sum()
