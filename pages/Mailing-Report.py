@@ -180,7 +180,7 @@ if mandrill_df is not None and conversion_df is not None:
         avg_open_rate_30 = emails_opened_30 / emails_delivered_30 if emails_delivered_30 else 0
 
         # Calculate conversion rate for "Automatic Emails 60 days"
-        conversion_30days = conversion_df_filtered[((conversion_df_filtered['extra_notification'] == 'days:30') | (conversion_df_filtered['extra_notification'].isna()) | (conversion_df_filtered['extra_notification'] == '')) & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        conversion_30days = conversion_df_filtered[(conversion_df_filtered['extra_notification'] == 'days:30')  & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
         # st.write(conversion_60days)
         conversion_rate_30 = (conversion_30days['id_fellowship'].dropna().nunique() / conversion_30days['id_notification'].dropna().nunique()) if conversion_30days['id_notification'].dropna().nunique() else 0
 
@@ -225,7 +225,7 @@ if mandrill_df is not None and conversion_df is not None:
         avg_open_rate_60 = emails_opened_60 / emails_delivered_60 if emails_delivered_60 else 0
 
         # Calculate conversion rate for "Automatic Emails 60 days"
-        conversion_60days = conversion_df_filtered[((conversion_df_filtered['extra_notification'].isin(['days:', 'days:60'])) | (conversion_df_filtered['extra_notification'].isna()) | (conversion_df_filtered['extra_notification'] == '')) & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
+        conversion_60days = conversion_df_filtered[(conversion_df_filtered['extra_notification'].isin(['days:', 'days:60'])) & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs')]
         # st.write(conversion_60days)
         conversion_rate_60 = (conversion_60days['id_fellowship'].dropna().nunique() / conversion_60days['id_notification'].dropna().nunique()) if conversion_60days['id_notification'].dropna().nunique() else 0
 
