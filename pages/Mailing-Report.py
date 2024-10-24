@@ -166,10 +166,54 @@ if mandrill_df is not None and conversion_df is not None:
         col12.metric("", "")
         
         
+        
+        # Calculate metrics for "Automatic Festive Emails 7 days"
+        # st.write("Data for Automatic Emails 7 days")
+        mandrill_7fdays = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:7') & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(mandrill_7days)
+        emails_sent_7f = mandrill_7fdays['DATA_ID'].nunique()
+        emails_delivered_7f = mandrill_7fdays['SENT'].sum()
+        emails_opened_7f = mandrill_7fdays['OPEN'].sum()
+        avg_delivery_rate_7f = emails_delivered_7f / emails_sent_7f if emails_sent_7f else 0
+        total_clicks_7f = mandrill_7fdays['DATA_CLICKS'].sum()
+        emails_with_click_7f = mandrill_7fdays['CLICKS'].sum()
+        ctr_7f = emails_with_click_7f / emails_delivered_7f if emails_delivered_7f else 0
+        avg_open_rate_7f = emails_opened_7f / emails_delivered_7f if emails_delivered_7f else 0
+
+        # Calculate conversion rate for "Automatic Emails 7 days"
+        conversion_7fdays = conversion_df_filtered[(conversion_df_filtered['extra_notification'] == 'days:7') & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(conversion_7days)
+        conversion_rate_7f = (conversion_7fdays['id_fellowship'].dropna().nunique() / conversion_7fdays['id_notification'].dropna().nunique()) if conversion_7fdays['id_notification'].dropna().nunique() else 0
+
+        # Calculate attendance and quantity for "Automatic Emails 7 days"
+        attendance_7f = conversion_7fdays['guests_transbook'].sum()
+        quantity_7f = conversion_7fdays['qty_transbook'].sum()
+
+        # Display metrics for "Automatic Emails 7 days"
+        st.markdown("## 📅 Automatic Festive Emails 7 days")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Emails Sent", emails_sent_7f)
+        col2.metric("Emails Delivered", emails_delivered_7f)
+        col3.metric("Emails Opened", emails_opened_7f)
+        col4.metric("AVG delivery rate", f"{avg_delivery_rate_7f:.2%}")
+
+        col5, col6, col7, col8 = st.columns(4)
+        col5.metric("Total Clicks", total_clicks_7f)
+        col6.metric("Emails With at Least 1 Click", emails_with_click_7f)
+        col7.metric("Click Rate (CTR)", f"{ctr_7f:.2%}")
+        col8.metric("AVG Open Rate", f"{avg_open_rate_7f:.2%}")
+
+        col9, col10, col11, col12 = st.columns(4)
+        col9.metric("Conversion Rate", f"{conversion_rate_7f:.2%}")
+        col10.metric("Attendance", attendance_7f)
+        col11.metric("Quantity", quantity_7f)
+        col12.metric("", "")
+        
+        
         # Calculate metrics for "Automatic Emails 30 days"
         # st.write("Data for Automatic Emails 30 days")
         mandrill_30days = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:30')  & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs')]
-        # st.write(mandrill_60days)
+        # st.write(mandrill_30days)
         emails_sent_30 = mandrill_30days['DATA_ID'].nunique()
         emails_delivered_30 = mandrill_30days['SENT'].sum()
         emails_opened_30 = mandrill_30days['OPEN'].sum()
@@ -210,6 +254,48 @@ if mandrill_df is not None and conversion_df is not None:
         
         
         
+        # Calculate metrics for "Automatic Festive Emails 30 days"
+        # st.write("Data for Automatic Festive Emails 30 days")
+        mandrill_30fdays = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'] == 'days:30')  & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(mandrill_30days)
+        emails_sent_30f = mandrill_30fdays['DATA_ID'].nunique()
+        emails_delivered_30f = mandrill_30fdays['SENT'].sum()
+        emails_opened_30f = mandrill_30fdays['OPEN'].sum()
+        avg_delivery_rate_30f = emails_delivered_30f / emails_sent_30f if emails_sent_30f else 0
+        total_clicks_30f = mandrill_30fdays['DATA_CLICKS'].sum()
+        emails_with_click_30f = mandrill_30fdays['CLICKS'].sum()
+        ctr_30f = emails_with_click_30f / emails_delivered_30f if emails_delivered_30f else 0
+        avg_open_rate_30f = emails_opened_30f / emails_delivered_30f if emails_delivered_30f else 0
+
+        # Calculate conversion rate for "Automatic Emails 60 days"
+        conversion_30fdays = conversion_df_filtered[(conversion_df_filtered['extra_notification'] == 'days:30')  & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(conversion_60days)
+        conversion_rate_30f = (conversion_30fdays['id_fellowship'].dropna().nunique() / conversion_30fdays['id_notification'].dropna().nunique()) if conversion_30fdays['id_notification'].dropna().nunique() else 0
+
+        # Calculate attendance and quantity for "Automatic Emails 60 days"
+        attendance_30f = conversion_30fdays['guests_transbook'].sum()
+        quantity_30f = conversion_30fdays['qty_transbook'].sum()
+
+        # Display metrics for "Automatic Emails 60 days"
+        st.markdown("## 📅 Automatic Emails 30 days")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Emails Sent", emails_sent_30f)
+        col2.metric("Emails Delivered", emails_delivered_30f)
+        col3.metric("Emails Opened", emails_opened_30f)
+        col4.metric("AVG delivery rate", f"{avg_delivery_rate_30f:.2%}")
+
+        col5, col6, col7, col8 = st.columns(4)
+        col5.metric("Total Clicks", total_clicks_30f)
+        col6.metric("Emails With at Least 1 Click", emails_with_click_30f)
+        col7.metric("Click Rate (CTR)", f"{ctr_30f:.2%}")
+        col8.metric("AVG Open Rate", f"{avg_open_rate_30f:.2%}")
+
+        col9, col10, col11, col12 = st.columns(4)
+        col9.metric("Conversion Rate", f"{conversion_rate_30f:.2%}")
+        col10.metric("Attendance", attendance_30f)
+        col11.metric("Quantity", quantity_30f)
+        col12.metric("", "")
+            
 
         # Calculate metrics for "Automatic Emails 60 days"
         # st.write("Data for Automatic Emails 60 days")
@@ -252,6 +338,53 @@ if mandrill_df is not None and conversion_df is not None:
         col10.metric("Attendance", attendance_60)
         col11.metric("Quantity", quantity_60)
         col12.metric("", "")
+        
+        
+        
+        # Calculate metrics for "Automatic Festive Emails 60 days"
+        # st.write("Data for Automatic Festive Emails 60 days")
+        mandrill_60fdays = mandrill_df_filtered[(mandrill_df_filtered['NOTIFICATION_TAG'].isin(['days:', 'days:60'])) & (mandrill_df_filtered['DATA_SUBJECT'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(mandrill_60days)
+        emails_sent_60f = mandrill_60fdays['DATA_ID'].nunique()
+        emails_delivered_60f = mandrill_60fdays['SENT'].sum()
+        emails_opened_60f = mandrill_60fdays['OPEN'].sum()
+        avg_delivery_rate_60f = emails_delivered_60f / emails_sent_60f if emails_sent_60f else 0
+        total_clicks_60f = mandrill_60fdays['DATA_CLICKS'].sum()
+        emails_with_click_60f = mandrill_60fdays['CLICKS'].sum()
+        ctr_60f = emails_with_click_60f / emails_delivered_60f if emails_delivered_60f else 0
+        avg_open_rate_60f = emails_opened_60f / emails_delivered_60f if emails_delivered_60f else 0
+
+        # Calculate conversion rate for "Automatic Emails 60 days"
+        conversion_60fdays = conversion_df_filtered[(conversion_df_filtered['extra_notification'].isin(['days:', 'days:60'])) & (conversion_df_filtered['subject_notification'] == 'Get the most out of your time at Fairmont Banff Springs!')]
+        # st.write(conversion_60days)
+        conversion_rate_60f = (conversion_60fdays['id_fellowship'].dropna().nunique() / conversion_60fdays['id_notification'].dropna().nunique()) if conversion_60fdays['id_notification'].dropna().nunique() else 0
+
+        # Calculate attendance and quantity for "Automatic Emails 60 days"
+        attendance_60f = conversion_60fdays['guests_transbook'].sum()
+        quantity_60f = conversion_60fdays['qty_transbook'].sum()
+
+        # Display metrics for "Automatic Emails 60 days"
+        st.markdown("## 📅 Automatic Emails 60 days")
+        col1, col2, col3, col4 = st.columns(4)
+        col1.metric("Emails Sent", emails_sent_60f)
+        col2.metric("Emails Delivered", emails_delivered_60f)
+        col3.metric("Emails Opened", emails_opened_60f)
+        col4.metric("AVG delivery rate", f"{avg_delivery_rate_60f:.2%}")
+
+        col5, col6, col7, col8 = st.columns(4)
+        col5.metric("Total Clicks", total_clicks_60f)
+        col6.metric("Emails With at Least 1 Click", emails_with_click_60f)
+        col7.metric("Click Rate (CTR)", f"{ctr_60f:.2%}")
+        col8.metric("AVG Open Rate", f"{avg_open_rate_60f:.2%}")
+
+        col9, col10, col11, col12 = st.columns(4)
+        col9.metric("Conversion Rate", f"{conversion_rate_60f:.2%}")
+        col10.metric("Attendance", attendance_60f)
+        col11.metric("Quantity", quantity_60f)
+        col12.metric("", "")
+        
+        
+        
 
         # Calculate metrics for "Guest Services Emails"
         # st.write("Data for Guest Services Emails")
