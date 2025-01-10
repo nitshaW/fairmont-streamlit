@@ -60,22 +60,29 @@ df = get_dataframe(query)
 # Rename columns
 df.rename(columns={
     'year_month': 'Year Month',
-    'count_id_notification_not_equal': 'Email/60',
-    'count_id_fellowship_not_equal': 'Profile Converted/60',
-    'count_transid_transbook_not_equal': 'Gross Booked/60',
-    'sum_guests_transbook_not_equal': 'Gross Guests/60',
-    'sum_subtotalagree_transbook_not_equal': 'Gross Value/60',
-    'count_id_notification_equal': 'Email/7',
-    'count_id_fellowship_equal': 'Profile Converted/7',
-    'count_transid_transbook_equal': 'Gross Booked/7',
-    'sum_guests_transbook_equal': 'Gross Guests/7',
-    'sum_subtotalagree_transbook_equal': 'Gross Value/7',
-    'conversion_percentage_not_equal': 'Conversion Rate/60',
-    'conversion_percentage_equal': 'Conversion Rate/7'
+    'count_id_notification_60_days': 'Email/60',
+    'count_id_fellowship_60_days': 'Profile Converted/60',
+    'count_transid_transbook_60_days': 'Gross Booked/60',
+    'sum_guests_transbook_60_days': 'Gross Guests/60',
+    'sum_subtotalagree_transbook_60_days': 'Gross Value/60',
+    'count_id_notification_30_days': 'Email/30',
+    'count_id_fellowship_30_days': 'Profile Converted/30',
+    'count_transid_transbook_30_days': 'Gross Booked/30',
+    'sum_guests_transbook_30_days': 'Gross Guests/30',
+    'sum_subtotalagree_transbook_30_days': 'Gross Value/30',
+    'count_id_notification_7_days': 'Email/7',
+    'count_id_fellowship_7_days': 'Profile Converted/7',
+    'count_transid_transbook_7_days': 'Gross Booked/7',
+    'sum_guests_transbook_7_days': 'Gross Guests/7',
+    'sum_subtotalagree_transbook_7_days': 'Gross Value/7',
+    'conversion_percentage_60_days': 'Conversion Rate/60',
+    'conversion_percentage_30_days': 'Conversion Rate/30',
+    'conversion_percentage_7_days': 'Conversion Rate/7'
 }, inplace=True)
 
 # Ensure 'Conversion/60' and 'Conversion/7' have 2 decimal places and include a percentage sign
 df['Conversion Rate/60'] = df['Conversion Rate/60'].apply(lambda x: f'{x:.2f}%')
+df['Conversion Rate/30'] = df['Conversion Rate/30'].apply(lambda x: f'{x:.2f}%')
 df['Conversion Rate/7'] = df['Conversion Rate/7'].apply(lambda x: f'{x:.2f}%')
 
 # Order by 'Year Month' in descending order
