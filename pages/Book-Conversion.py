@@ -137,7 +137,7 @@ if df is not None:
         # grand_total['Conversion'] = average_conversion
         
         # Calculate overall conversion 
-        overall_conversion = grand_total['Gross Booked'] / grand_total['View']
+        overall_conversion = grand_total['Gross Booked'] / grand_total['View'] * 100
         grand_total['Conversion'] = overall_conversion
         
         # Remove non-numeric columns from the grand total row
