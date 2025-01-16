@@ -132,15 +132,19 @@ if df is not None:
         grand_total = filtered_df.select_dtypes(include=['number']).sum().to_frame().T
         grand_total.index = ['Grand Total']
         
-        # Calculate average conversion ignoring inf values
-        average_conversion = filtered_df['Conversion'].replace([float('inf'), float('-inf')], pd.NA).mean()
-        grand_total['Conversion'] = average_conversion
+        # # Calculate average conversion ignoring inf values
+        # average_conversion = filtered_df['Conversion'].replace([float('inf'), float('-inf')], pd.NA).mean()
+        # grand_total['Conversion'] = average_conversion
+        
+        # Calculate overall conversion 
+        overall_conversion = grand_total['Gross Booked'] / grand_total['View']
+        grand_total['Conversion'] = overall_conversion
         
         # Remove non-numeric columns from the grand total row
         grand_total = grand_total.reindex(columns=['View', 'Conversion', 'Gross Booked', 'Net Booked', 'Net Attendance', 'Net Value', 'Cancelled', 'Other Status'])
         
         # Rename 'Conversion' to 'Average Conversion' in grand total row
-        grand_total.rename(columns={'Conversion': 'Average Conversion'}, inplace=True)
+        grand_total.rename(columns={'Conversion': 'Overall Conversion'}, inplace=True)
         
         # Round values to 2 decimal places
         grand_total = grand_total.round(2)
